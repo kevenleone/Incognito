@@ -1,0 +1,8 @@
+name = "incognito-api"
+main = "src/index.ts"
+compatibility_date = "2022-11-13"
+
+# [vars]
+# PLANET_SCALE_HOST=""
+# PLANET_SCALE_PASSWORD=""
+# PLANET_SCALE_USERNAME=""
