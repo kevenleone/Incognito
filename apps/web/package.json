@@ -1,5 +1,5 @@
 {
-  "name": "incognito-web",
+  "name": "@incognito/web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "incognito-sdk": "*"
+    "@incognito/sdk": "*"
   },
   "devDependencies": {
     "typescript": "^4.6.4",

@@ -1,5 +1,5 @@
 import "./style.css";
-import IncognitoSDK from "incognito-sdk";
+import IncognitoSDK from "@incognito/sdk";
 
 const incognito = new IncognitoSDK(
   "incognito-id-fff",

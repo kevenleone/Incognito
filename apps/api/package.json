@@ -1,5 +1,5 @@
 {
-  "name": "incognito-api",
+  "name": "@incognito/api",
   "version": "0.0.0",
   "devDependencies": {
     "@cloudflare/workers-types": "^3.18.0",
