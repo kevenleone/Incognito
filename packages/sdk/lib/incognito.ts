@@ -1,11 +1,11 @@
 class Incognito {
   private readonly applicationId: string;
-  private readonly deviceStorageKey = "@incognito/device";
+  private readonly deviceStorageKey = '@incognito/device';
   private readonly incognitoApiHost: string;
 
   constructor(
     applicationId: string,
-    incognitoApiHost = "http://localhost:8787"
+    incognitoApiHost = 'http://localhost:8787'
   ) {
     this.applicationId = applicationId;
     this.incognitoApiHost = incognitoApiHost;
@@ -30,18 +30,36 @@ class Incognito {
     return deviceId;
   }
 
-  async getDeviceProperties() {
-    const location = await this.getGeoLocation();
+  public async getDeviceIsTrustable(): Promise<{ trustableDevice: boolean }> {
+    const deviceId = this.getDeviceId();
+
+    const response = await fetch(
+      `${this.incognitoApiHost}/api/device-checkin/${deviceId}/trustable`,
+      {
+        headers: {
+          'Incognito-Application-ID': this.applicationId,
+        },
+      }
+    );
+
+    return response.json();
+  }
+
+  private async getDeviceProperties() {
+    const { latitude, longitude } = await this.getGeoLocation();
 
     return {
       deviceId: this.getDeviceId(),
-      latitude: location.latitude,
-      longitude: location.longitude,
+      latitude,
+      longitude,
       timestamp: new Date(),
     };
   }
 
-  async getGeoLocation() {
+  private async getGeoLocation(): Promise<{
+    latitude: number;
+    longitude: number;
+  }> {
     const getGeoLocationPromised = (): Promise<GeolocationPosition> => {
       return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -64,19 +82,19 @@ class Incognito {
    * since we are not handling with retries, retry condition isn't needed
    */
 
-  async init(): Promise<void> {
+  public async init(): Promise<void> {
     const deviceProperties = await this.getDeviceProperties();
 
-    await fetch(`${this.incognitoApiHost}/api/device`, {
+    await fetch(`${this.incognitoApiHost}/api/device-checkin`, {
       body: JSON.stringify(deviceProperties),
       headers: {
-        "Content-Type": "application/json",
-        "Incognito-Application-ID": this.applicationId,
+        'Content-Type': 'application/json',
+        'Incognito-Application-ID': this.applicationId,
       },
-      method: "POST",
+      method: 'POST',
     });
 
-    console.info("Incognito Metadata Sent to the Server");
+    console.info('Incognito Metadata Sent to the Server');
   }
 }
 

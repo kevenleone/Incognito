@@ -1,6 +1,7 @@
 interface IncognitoClass {
   init: () => void;
   getDeviceId: () => string;
+  getDeviceIsTrustable: () => { trustableDevice: boolean };
 }
 
 declare var Incognito: {
