@@ -1,11 +1,11 @@
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
     lib: {
-      entry: "./lib/incognito.ts",
-      name: "Incognito",
-      fileName: "incognito",
+      entry: './lib/incognito.ts',
+      name: 'Incognito',
+      fileName: 'incognito',
     },
   },
 });

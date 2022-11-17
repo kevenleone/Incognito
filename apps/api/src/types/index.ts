@@ -9,9 +9,9 @@ export interface Device {
 export type DistanceOptions = [GeoLocation, GeoLocation];
 
 export enum FraudScore {
-  LOW = "LOW",
-  HIGH = "HIGH",
-  UNKNOWN = "UNKNOWN",
+  LOW = 'LOW',
+  HIGH = 'HIGH',
+  UNKNOWN = 'UNKNOWN',
 }
 
 interface GeoLocation {

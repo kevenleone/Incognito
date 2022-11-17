@@ -10,6 +10,9 @@
     },
     "dev": {
       "cache": false
+    },
+    "deploy": {
+      "outputs": ["dist/**", "build/**"]
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Device, DistanceOptions, FraudScore } from "../types";
+import { Device, DistanceOptions, FraudScore } from '../types';
 
 const DAILY_COMMON_DISTANCE = 10;
 const DAILY_RISK_DISTANCE = 30;
