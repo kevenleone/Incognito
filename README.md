@@ -1,6 +1,6 @@
-# Turborepo starter
+# Incognito App
 
-This is an official Yarn v1 starter turborepo.
+A proof of concept of an Application collecting information from a client and sending it to a server through a SDK, 
 
 ## What's inside?
 
@@ -8,9 +8,9 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `api`: a [Cloudflare Worker](https://workers.cloudflare.com) serverless app
+- `web`: a [Vite](https://vitejs.dev) app
+- `sdk`: a library to collect data from browser `web` and send it to the `api`.
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
@@ -29,8 +29,7 @@ This turborepo has some additional tools already setup for you:
 To build all apps and packages, run the following command:
 
 ```
-cd my-turborepo
-yarn run build
+yarn build
 ```
 
 ### Develop
@@ -38,36 +37,24 @@ yarn run build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
-yarn run dev
+yarn dev
 ```
 
-### Remote Caching
+### Local Envinronment
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+The `web` app is using SDK, using the API from the Cloud, to switch to local to must open `apps/web/src/main.ts` and change `https://incognito-api.incognito-poc.workers.dev` to `http://localhost:8787`
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+To run local it's necessary to create an account in `https://planetscale.com/` and add the access to the database into file: `apps/api/wrangler.toml`
 
-```
-cd my-turborepo
-npx turbo login
-```
+Replacing `PLANET_SCALE_HOST`, `PLANET_SCALE_PASSWORD`, `PLANET_SCALE_USERNAME` with your credentials
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+----
+You must create an account in cloudclare workers to run it locally, using wrangler.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+Read the docs here: https://workers.cloudflare.com
 
-```
-npx turbo link
-```
+### Accessing Production Environment
 
-## Useful Links
+https://incognito-web.vercel.app
 
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Use Dev Tools to analyze the network, to change the location I recommend using Google Chrome, read the topic [Manually change your location in Chrome](https://www.comparitech.com/blog/vpn-privacy/change-location-chrome-firefox-spoof)
