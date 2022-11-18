@@ -31,7 +31,13 @@ export const createDevice = async (conn: Connection, device: Device) => {
     throw new Error('Body is missing');
   }
 
-  const { deviceId, timestamp, deviceMetadata, latitude, longitude } = device;
+  const {
+    'device-id': deviceId,
+    'device-metadata': deviceMetadata,
+    latitude,
+    longitude,
+    timestamp,
+  } = device;
 
   if (!deviceId || !latitude || !longitude) {
     throw new Error('Device, Latitude or Longitude is missing');

@@ -46,32 +46,30 @@ class Incognito {
   }
 
   private async getDeviceProperties() {
-    const { latitude, longitude } = await this.getGeoLocation();
+    const {
+      coords: { latitude, longitude, accuracy },
+    } = await this.getGeoLocation();
 
     return {
-      deviceId: this.getDeviceId(),
+      'device-id': this.getDeviceId(),
+      'device-metadata': {
+        accuracy,
+        'app-name': 'Incognito',
+      },
       latitude,
       longitude,
       timestamp: new Date(),
     };
   }
 
-  private async getGeoLocation(): Promise<{
-    latitude: number;
-    longitude: number;
-  }> {
+  private async getGeoLocation(): Promise<GeolocationPosition> {
     const getGeoLocationPromised = (): Promise<GeolocationPosition> => {
       return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
     };
 
-    const location = await getGeoLocationPromised();
-
-    return {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    };
+    return getGeoLocationPromised();
   }
 
   /**

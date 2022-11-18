@@ -18,6 +18,10 @@ routes.prepare = preflight({
   methods: ['GET', 'POST'],
 });
 
+routes.add('GET', '/', (request, response) => {
+  return response.send(200, { message: 'Hello World' });
+});
+
 routes.add('GET', '/api/device-checkin', async (request, response) => {
   try {
     const conn = connect(planetScaleConfig);
@@ -73,7 +77,9 @@ routes.add(
 routes.add('POST', '/api/device-checkin', async (request, response) => {
   const body = (await request.body<Device>()) as Device;
 
-  body.deviceMetadata = request.headers.get('user-agent') as string;
+  body['device-metadata'] = body['device-metadata']
+    ? JSON.stringify(body['device-metadata'])
+    : (request.headers.get('user-agent') as string);
 
   const conn = connect(planetScaleConfig);
 

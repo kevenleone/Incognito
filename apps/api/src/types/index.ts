@@ -1,6 +1,6 @@
 export interface Device {
-  deviceId: string;
-  deviceMetadata?: string;
+  'device-id': string;
+  'device-metadata'?: string;
   latitude: number;
   longitude: number;
   timestamp: string;
